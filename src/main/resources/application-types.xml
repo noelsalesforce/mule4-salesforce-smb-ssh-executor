@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="patient" format="json">
+      <types:shape format="weave" example="examples/patient1-2.json"><![CDATA[%dw 2.0
+
+type patient = {|
+  resourceType: String, 
+  id: String, 
+  identifier: Array<{|    use: String,     "type": {|      coding: Array<{|        system: String,         code: String      |}>
+    |}, 
+    system: String, 
+    value: String, 
+    period: {| start: String |}, 
+    assigner: {| display: String |}
+  |}>, 
+  active: Boolean, 
+  firstName: String, 
+  lastName: String, 
+  telecom: Array<{|    use: String,     system: String,     value: String,     rank: Number {"typeId": "int"},     period: {| end: String |}  |}>, 
+  gender: String, 
+  birthDate: String, 
+  "_birthDate": {|
+    extension: Array<{|      url: String,       valueDateTime: String    |}>
+  |}, 
+  deceasedBoolean: Boolean, 
+  address: Array<{|    use: String,     "type": String,     text: String,     line: Array<String>, 
+    city: String, 
+    district: String, 
+    state: String, 
+    postalCode: String, 
+    period: {| start: String |}
+  |}>, 
+  contact: Array<{|    relationship: Array<{|      coding: Array<{|        system: String,         code: String      |}>
+    |}>, 
+    name: {|
+      family: String, 
+      "_family": {|
+        extension: Array<{|          url: String,           valueString: String        |}>
+      |}, 
+      given: Array<String>
+    |}, 
+    telecom: Array<{|      system: String,       value: String    |}>, 
+    address: {|
+      use: String, 
+      "type": String, 
+      line: Array<String>, 
+      city: String, 
+      district: String, 
+      state: String, 
+      postalCode: String, 
+      period: {| start: String |}
+    |}, 
+    gender: String, 
+    period: {| start: String |}
+  |}>, 
+  email: String, 
+  managingOrganization: {| reference: String |}
+|} {"example": "{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"example\\\",\\\"identifier\\\":[{\\\"use\\\":\\\"usual\\\",\\\"type\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\\/\\/terminology.hl7.org\\/CodeSystem\\/v2-0203\\\",\\\"code\\\":\\\"MR\\\"}]},\\\"system\\\":\\\"urn:oid:1.2.36.146.595.217.0.1\\\",\\\"value\\\":\\\"12345\\\",\\\"period\\\":{\\\"start\\\":\\\"2001-05-06\\\"},\\\"assigner\\\":{\\\"display\\\":\\\"Acme Healthcare\\\"}}],\\\"active\\\":true,\\\"firstName\\\":\\\"Alex\\\",\\\"lastName\\\":\\\"Smith\\\",\\\"telecom\\\":[{\\\"use\\\":\\\"home\\\"},{\\\"system\\\":\\\"phone\\\",\\\"value\\\":\\\"(03) 5555 6473\\\",\\\"use\\\":\\\"work\\\",\\\"rank\\\":1},{\\\"system\\\":\\\"phone\\\",\\\"value\\\":\\\"(03) 3410 5613\\\",\\\"use\\\":\\\"mobile\\\",\\\"rank\\\":2},{\\\"system\\\":\\\"phone\\\",\\\"value\\\":\\\"(03) 5555 8834\\\",\\\"use\\\":\\\"old\\\",\\\"period\\\":{\\\"end\\\":\\\"2014\\\"}}],\\\"gender\\\":\\\"male\\\",\\\"birthDate\\\":\\\"1974-12-25\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:\\/\\/hl7.org\\/fhir\\/StructureDefinition\\/patient-birthTime\\\",\\\"valueDateTime\\\":\\\"1974-12-25T14:35:45-05:00\\\"}]},\\\"deceasedBoolean\\\":false,\\\"address\\\":[{\\\"use\\\":\\\"home\\\",\\\"type\\\":\\\"both\\\",\\\"text\\\":\\\"534 Erewhon St PeasantVille, Rainbow, Vic  3999\\\",\\\"line\\\":[\\\"534 Erewhon St\\\"],\\\"city\\\":\\\"PleasantVille\\\",\\\"district\\\":\\\"Rainbow\\\",\\\"state\\\":\\\"Vic\\\",\\\"postalCode\\\":\\\"3999\\\",\\\"period\\\":{\\\"start\\\":\\\"1974-12-25\\\"}}],\\\"contact\\\":[{\\\"relationship\\\":[{\\\"coding\\\":[{\\\"system\\\":\\\"http:\\/\\/terminology.hl7.org\\/CodeSystem\\/v2-0131\\\",\\\"code\\\":\\\"N\\\"}]}],\\\"name\\\":{\\\"family\\\":\\\"du March\u00E9\\\",\\\"_family\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:\\/\\/hl7.org\\/fhir\\/StructureDefinition\\/humanname-own-prefix\\\",\\\"valueString\\\":\\\"VV\\\"}]},\\\"given\\\":[\\\"B\u00E9n\u00E9dicte\\\"]},\\\"telecom\\\":[{\\\"system\\\":\\\"phone\\\",\\\"value\\\":\\\"+33 (237) 998327\\\"}],\\\"address\\\":{\\\"use\\\":\\\"home\\\",\\\"type\\\":\\\"both\\\",\\\"line\\\":[\\\"534 Erewhon St\\\"],\\\"city\\\":\\\"PleasantVille\\\",\\\"district\\\":\\\"Rainbow\\\",\\\"state\\\":\\\"Vic\\\",\\\"postalCode\\\":\\\"3999\\\",\\\"period\\\":{\\\"start\\\":\\\"1974-12-25\\\"}},\\\"gender\\\":\\\"female\\\",\\\"period\\\":{\\\"start\\\":\\\"2012\\\"}}],\\\"email\\\":\\\"alexsmith@test.com\\\",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"Organization\\/1\\\"}}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#e320a48e-9e35-4f7b-9ba1-6fbca5c1a571">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="patient"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

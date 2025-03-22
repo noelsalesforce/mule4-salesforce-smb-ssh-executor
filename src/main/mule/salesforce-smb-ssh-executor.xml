@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sharepoint="http://www.mulesoft.org/schema/mule/sharepoint"
+	xmlns:azure-storage="http://www.mulesoft.org/schema/mule/azure-storage" xmlns:java="http://www.mulesoft.org/schema/mule/java"
+	xmlns:powershell="http://www.mulesoft.org/schema/mule/powershell"
+	xmlns:microsoftOneDrive="http://www.mulesoft.org/schema/mule/microsoftOneDrive" xmlns:smb="http://www.mulesoft.org/schema/mule/smb" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:idp-handwritten-notes-100="http://www.mulesoft.org/schema/mule/idp-handwritten-notes-100" xmlns:quickbooks-online-connector-mule-4="http://www.mulesoft.org/schema/mule/quickbooks-online-connector-mule-4" xmlns:netsuite="http://www.mulesoft.org/schema/mule/netsuite" xmlns:_1715018706-demo-process-20240526="http://www.mulesoft.org/schema/mule/_1715018706-demo-process-20240526" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:idp-bank-statement-fidelity-100="http://www.mulesoft.org/schema/mule/idp-bank-statement-fidelity-100" xmlns:gmail="http://www.mulesoft.org/schema/mule/gmail" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:slack="http://www.mulesoft.org/schema/mule/slack" xmlns:idp-read-bank-statement-100="http://www.mulesoft.org/schema/mule/idp-read-bank-statement-100" xmlns:update-delivery-date="http://www.mulesoft.org/schema/mule/update-delivery-date" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/update-delivery-date http://www.mulesoft.org/schema/mule/update-delivery-date/current/mule-update-delivery-date.xsd
+http://www.mulesoft.org/schema/mule/idp-read-bank-statement-100 http://www.mulesoft.org/schema/mule/idp-read-bank-statement-100/current/mule-idp-read-bank-statement-100.xsd
+http://www.mulesoft.org/schema/mule/slack http://www.mulesoft.org/schema/mule/slack/current/mule-slack.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/gmail http://www.mulesoft.org/schema/mule/gmail/current/mule-gmail.xsd
+http://www.mulesoft.org/schema/mule/idp-bank-statement-fidelity-100 http://www.mulesoft.org/schema/mule/idp-bank-statement-fidelity-100/current/mule-idp-bank-statement-fidelity-100.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/_1715018706-demo-process-20240526 http://www.mulesoft.org/schema/mule/_1715018706-demo-process-20240526/current/mule-_1715018706-demo-process-20240526.xsd
+http://www.mulesoft.org/schema/mule/netsuite http://www.mulesoft.org/schema/mule/netsuite/current/mule-netsuite.xsd
+http://www.mulesoft.org/schema/mule/quickbooks-online-connector-mule-4 http://www.mulesoft.org/schema/mule/quickbooks-online-connector-mule-4/current/mule-quickbooks-online-connector-mule-4.xsd
+http://www.mulesoft.org/schema/mule/idp-handwritten-notes-100 http://www.mulesoft.org/schema/mule/idp-handwritten-notes-100/current/mule-idp-handwritten-notes-100.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/smb http://www.mulesoft.org/schema/mule/smb/current/mule-smb.xsd
+http://www.mulesoft.org/schema/mule/microsoftOneDrive http://www.mulesoft.org/schema/mule/microsoftOneDrive/current/mule-microsoftOneDrive.xsd
+http://www.mulesoft.org/schema/mule/powershell http://www.mulesoft.org/schema/mule/powershell/current/mule-powershell.xsd
+http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd
+http://www.mulesoft.org/schema/mule/azure-storage http://www.mulesoft.org/schema/mule/azure-storage/current/mule-azure-storage.xsd
+http://www.mulesoft.org/schema/mule/sharepoint http://www.mulesoft.org/schema/mule/sharepoint/current/mule-sharepoint.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a4240855-b1d2-468a-9458-0deda8ca5fcf" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="794d1cea-3147-48fd-a39b-1307b3ec6f1b" >
+		<salesforce:basic-connection username="${sfdc.username}" password="${sfdc.password}" />
+	</salesforce:sfdc-config>
+	<sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="893ac3eb-2a6d-42ea-9e3d-118c24561c0a" >
+		<sftp:connection host="${sftp.host}" port="${sftp.port}" username="${sftp.username}" password="${sftp.password}" workingDir="/upload"/>
+	</sftp:config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="56e28b91-8f64-49e6-9d80-e5532bb45278" >
+		<http:request-connection host="65d394ad522627d5010931e7.mockapi.io" protocol="HTTPS"/>
+	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="71dd374c-4912-4dae-89c3-e1371af61a12" file="credentials.properties" />
+	<os:object-store name="Oauth_Object_store" doc:name="Object store" doc:id="f2a4646b-526b-4de4-bcbd-2b86bd30f034" />
+	<salesforce:sfdc-config name="Salesforce_Einstein_Config" doc:name="Salesforce Config" doc:id="c8c61a51-f68d-41c6-b77b-b9569f79231e" >
+		<salesforce:basic-connection username="${sfdcEinstein.username}" password="${sfdcEinstein.password}" />
+	</salesforce:sfdc-config>
+	<smb:config name="SMB_Connector_Config" doc:name="SMB Connector Config" doc:id="e408ac1c-95a0-4bb3-9c39-d3303ec40684" >
+		<smb:connection domain="${smb.domain}" host="${smb.host}" share="${smb.share}" username="${smb.username}" password="${smb.password}" />
+	</smb:config>
+	<powershell:config name="Powershell_Configuration" doc:name="Powershell Configuration" doc:id="4c0d6c66-9e4a-488a-9d65-a9a5f1c26775" >
+		<powershell:powershell-connection host="${powershell.ip}" username="${powershell.username}" password="${powershell.password}" operativeSystem="LINUX" />
+	</powershell:config>
+	<salesforce:sfdc-config name="Salesforce_Config_Manufacturing" doc:name="Salesforce Config" doc:id="8760a939-72b3-4299-b486-d0e610dc125f" >
+		<salesforce:basic-connection username="${sfdc.usernameManufacturing}" password="${sfdc.passwordManufacturing}" />
+	</salesforce:sfdc-config>
+	<sharepoint:sharepoint-online-config name="Sharepoint_Sharepoint_online" doc:name="Sharepoint Sharepoint online" doc:id="8b2c473f-d3e9-4cb0-8713-c39777ee2ee9" >
+		<sharepoint:online-connection siteUrl="${sharepoint.siteUrl}" onlineUsername="${sharepoint.username}" onlinePassword="${sharepoint.password}" />
+	</sharepoint:sharepoint-online-config>
+	<flow name="Flow1-CreateNewFolder" doc:id="3c4d19fb-46a7-4eae-aaa8-a2d12ed9d58c">
+		<salesforce:modified-object-listener objectType="Opportunity" doc:name="Opportunity" doc:id="ca7d44d3-415a-40e2-8bed-df89c5f7bad7" config-ref="Salesforce_Einstein_Config">
+			<scheduling-strategy>
+				<fixed-frequency />
+			</scheduling-strategy>
+		</salesforce:modified-object-listener>
+		<set-variable value="#[payload.Id]" doc:name="Opportunity Id" doc:id="607fa4a2-43c6-497e-95a1-f0ed40f65bd0" variableName="opportunityId" />
+		<choice doc:name="Choice" doc:id="a655ba24-90a1-476a-9b49-52b1f8b73f78">
+			<when expression='#[payload.Job_Id__c != null and payload.Job_Status__c == "New"]'>
+				<java:invoke-static method="main(java.lang.String,java.lang.String,java.lang.String)" doc:name="Invoke static" doc:id="740ec32c-cee3-463c-8b4b-d14b2b9f0a2e" class="file.Callssh">
+					<java:args><![CDATA[#[{
+	user : p('ssh.user'),
+	password : p('ssh.password'),
+	jobId : payload.Job_Id__c default ""
+}]]]></java:args>
+				</java:invoke-static>
+				<ee:transform doc:name="Transform Message" doc:id="7bbb3412-937d-4cb9-8b73-b764f0a0a805">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+[{
+	Id: vars.opportunityId as String,
+	Job_Status__c: "Pending",
+}]]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<salesforce:update doc:name="Opportunity Status to Pending" doc:id="fe08f817-a5e1-42c1-84f5-682b7b776b06" config-ref="Salesforce_Einstein_Config" type="Opportunity" />
+			</when>
+		</choice>
+	</flow>
+	<flow name="fileFlow" doc:id="db87547b-9c36-479d-90c6-74148d2b5fe4">
+		<http:listener doc:name="Listener" doc:id="4643a5e1-37c7-4213-9a40-f68e185f34f8" config-ref="HTTP_Listener_config" path="/createBaseFoldersJ" />
+		<java:invoke-static doc:name="Invoke static" doc:id="1affe61f-2062-44c1-acf5-f7e38cc19421" class="file.Callssh" method="main(java.lang.String,java.lang.String,java.lang.String)">
+			<java:args><![CDATA[#[{
+	user : p('ssh.user'),
+	password : p('ssh.password'),
+	jobId : attributes.queryParams.jobId default ""
+}]]]></java:args>
+		</java:invoke-static>
+	</flow>
+	<flow name="Flow1-CreateBaseFolders" doc:id="a063d00c-ee81-456b-80fa-e6c825f53941" >
+		<http:listener doc:name="Create Base Folders" doc:id="ca94d417-06e4-4183-addb-cf85a67ad6f2" config-ref="HTTP_Listener_config" path="/createBaseFolders"/>
+		<powershell:execute-script-file-with-exception-handling doc:name="Execute script file (exception handling enabled)" doc:id="de33ac30-e3e7-44f7-961b-3bce56e722b2" config-ref="Powershell_Configuration">
+			<powershell:file-content ><![CDATA[bash /Users/rb26dett/z/create_folders.sh]]></powershell:file-content>
+		</powershell:execute-script-file-with-exception-handling>
+	</flow>
+	<flow name="Flow1-CreateNewFolder1" doc:id="240b2d8e-c3e5-4bbe-acb1-7ba97550fc17">
+		<salesforce:modified-object-listener objectType="Opportunity" doc:name="On Modified Object" doc:id="e22547e5-a8e2-45ca-9f94-071d7447fa8f" config-ref="Salesforce_Einstein_Config">
+			<scheduling-strategy>
+				<fixed-frequency />
+			</scheduling-strategy>
+		</salesforce:modified-object-listener>
+		<choice doc:name="Choice" doc:id="28f84ebe-28dc-4d5e-9cb5-660094fb551a">
+			<when expression='#[payload.Job_Id__c != null and payload.Job_Status__c == "SMB"]'>
+				<smb:file-read doc:name="File Read" doc:id="d1734035-43a0-4558-bc26-79d3156d7958" config-ref="SMB_Connector_Config" fileName="test.txt" dirName="0311"/>
+				<logger level="INFO" doc:name="Logger" doc:id="8739b20f-36e1-44a5-ae64-4b6a032900e9" message="#[%dw 2.0&#10;output application/json&#10;---&#10;payload]"/>
+			</when>
+		</choice>
+	</flow>
+	<flow name="handleFolder" doc:id="793e45ee-0582-44e5-8335-2b19cadd4ad7" >
+		<logger level="INFO" doc:name="Logger" doc:id="dfdd9dca-e96f-4061-962a-e7b6bee0355f" message='#["this is a folder " ++ payload.path as String default ""]' />
+		<set-variable value="#[payload.path]" doc:name="Set Variable" doc:id="c23cd815-7400-48d7-9ed5-9e06abd6679c" variableName="path" />
+		<smb:directory-list doc:name="Directory List" doc:id="7cfbe234-f6f7-402f-9d13-f57831223c9f" config-ref="SMB_Connector_Config" dirName="#[payload.path]" wildcard="*" />
+		<foreach doc:name="For Each" doc:id="9fc06919-51ad-41e2-a899-c7af8501adb8">
+			<choice doc:name="Choice" doc:id="94fd8384-8459-461c-888f-943d712666cf">
+			<when expression='payload.FileAttributes == "16"'>
+					<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;payload ++ { path: vars.path ++ "/" ++ payload.Filename as String default "" }]' doc:name="Set Payload" doc:id="a8c2c837-5cd4-4bfd-86bf-37293b187078" />
+					<flow-ref doc:name="Flow Reference" doc:id="e1a59df1-0ca8-423c-a910-85d8cff5bcf0" name="handleFolder" />
+			</when>
+			<otherwise>
+				<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	filePath: payload.Filename as String default ""&#10;}]' doc:name="Set Payload" doc:id="e834a3e9-6d93-40ad-9989-0a5d98dc0be9" />
+					<flow-ref doc:name="Flow Reference" doc:id="5349ab2e-f087-4377-8995-3006b3a76a68" name="handleFile" />
+			</otherwise>
+		</choice>
+		</foreach>
+	</flow>
+	<flow name="handleFile" doc:id="81dcaba9-2cc7-4952-870d-393b12784d9a" >
+		<logger level="INFO" doc:name="Logger" doc:id="74e2615b-fe6c-4d43-8f34-d511ad62deb3" message='#[payload.filePath as String default ""]' />
+		<ee:transform doc:name="Transform Message" doc:id="a76a978b-b9cc-4ff0-939b-1ef84c6b2332" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload.filePath as String default ""]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	
+</mule>
